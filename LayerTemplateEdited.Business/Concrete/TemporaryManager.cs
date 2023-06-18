@@ -1,14 +1,14 @@
-﻿using LayerTemplateEdited.Business.Abstract;
+﻿using FluentValidation;
+using LayerTemplateEdited.Business.Abstract;
+using LayerTemplateEdited.Business.Constants;
+using LayerTemplateEdited.Business.ValidationRules;
+using LayerTemplateEdited.Core.Aspects.Autofac.Validation;
+using LayerTemplateEdited.Core.CrossCuttingConcerns.Validation;
+using LayerTemplateEdited.Core.Utilities.Results;
 using LayerTemplateEdited.DataAccess.Abstract;
-using LayerTemplateEdited.DataAccess.Concrete.EntityFramework;
 using LayerTemplateEdited.Entities.Concrete;
 using LayerTemplateEdited.Entities.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.ComponentModel.DataAnnotations;
 
 namespace LayerTemplateEdited.Business.Concrete
 {
@@ -21,19 +21,26 @@ namespace LayerTemplateEdited.Business.Concrete
 			_temporaryDal = temporaryDal;
 		}
 
-		public List<Temporary> GetAll()
+		[ValidationAspect(typeof(TemporaryValidator))]
+		public IResult Add(Temporary temp)
 		{
-			return _temporaryDal.GetAll();
+			_temporaryDal.Add(temp);
+			return new SuccessResult(Messages.TemporaryAdded);
+		}
+		 
+		public IDataResult<List<Temporary>> GetAll()
+		{
+			return new SuccessDataResult<List<Temporary>>(_temporaryDal.GetAll());
+		}
+		 
+		public IDataResult<Temporary> GetById(int id)
+		{
+			return new SuccessDataResult<Temporary>(_temporaryDal.Get(x => x.TemporaryId == id)); 
 		}
 
-		public Temporary GetById(int id)
+		public IDataResult<List<TemporaryDetailDto>>  GetTemporaryDetails()
 		{
-			return _temporaryDal.Get(x => x.TemporaryId == id);
-		}
-
-		public List<TemporaryDetailDto> GetTemporaryDetails()
-		{
-			return _temporaryDal.GetTemporaryDetails();
+			return new SuccessDataResult<List<TemporaryDetailDto>>(_temporaryDal.GetTemporaryDetails()); 
 		}
 	}
 }

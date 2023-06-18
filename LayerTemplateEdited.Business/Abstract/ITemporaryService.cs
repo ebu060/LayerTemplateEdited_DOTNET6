@@ -1,17 +1,15 @@
-﻿using LayerTemplateEdited.Entities.Concrete;
+﻿using LayerTemplateEdited.Core.Utilities.Results;
+using LayerTemplateEdited.Entities.Concrete;
 using LayerTemplateEdited.Entities.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace LayerTemplateEdited.Business.Abstract
 {
 	public interface ITemporaryService
 	{
-		List<Temporary> GetAll();
-		Temporary GetById(int id);
-		List<TemporaryDetailDto> GetTemporaryDetails();
+		IDataResult<List<Temporary>> GetAll();
+		IDataResult<Temporary> GetById(int id);
+		IResult Add(Temporary temp);
+		IDataResult<List<TemporaryDetailDto>> GetTemporaryDetails();
 	}
 }

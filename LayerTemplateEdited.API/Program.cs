@@ -1,7 +1,11 @@
-using LayerTemplateEdited.Business.Abstract;
-using LayerTemplateEdited.Business.Concrete;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using LayerTemplateEdited.Business.DependecyResolvers.Autofac;
+
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
 
 // Add services to the container.
 
@@ -26,3 +30,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+ 
