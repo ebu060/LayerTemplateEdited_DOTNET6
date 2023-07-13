@@ -9,5 +9,7 @@ namespace LayerTemplateEdited.Business.Constants
 	public static class Messages
 	{
 		public static string TemporaryAdded = "Temporary Data Added.";
+		public static string ProductCountOfCategoryError = "";
+		public static string ProductNameAlreadyExists = "";
 	}
 }

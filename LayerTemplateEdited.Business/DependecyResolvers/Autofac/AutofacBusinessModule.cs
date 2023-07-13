@@ -14,7 +14,10 @@ namespace LayerTemplateEdited.Business.DependecyResolvers.Autofac
 		protected override void Load(ContainerBuilder builder)
 		{
 			builder.RegisterType<TemporaryManager>().As<ITemporaryService>().SingleInstance();
+			builder.RegisterType<TemporaryCategoryManager>().As<ITemporaryCategoryService>().SingleInstance();
+
 			builder.RegisterType<TemporaryDal>().As<ITemporaryDal>().SingleInstance();
+			builder.RegisterType<TemporaryCategoryDal>().As<ITemporaryCategoryDal>().SingleInstance();
 
 
 
