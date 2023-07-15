@@ -13,7 +13,7 @@ namespace LayerTemplateEdited.Business.Constants
 		public static string TemporaryAdded = "Temporary Data Added.";
 		public static string ProductCountOfCategoryError = "";
 		public static string ProductNameAlreadyExists = "";
-		public static string AuthorizationDenied = "";
+		public static string AuthorizationDenied = "Yetkisiz İşlem.";
 		public static string UserRegistered = "";
 		public static string UserNotFound = "";
 		public static string PasswordError = "Şifre Hatası";

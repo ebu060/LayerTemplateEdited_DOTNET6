@@ -1,20 +1,18 @@
-﻿using FluentValidation;
-using LayerTemplateEdited.Business.Abstract;
+﻿using LayerTemplateEdited.Business.Abstract;
+using LayerTemplateEdited.Business.BusinessAspects.Autofac;
 using LayerTemplateEdited.Business.Constants;
 using LayerTemplateEdited.Business.ValidationRules;
+using LayerTemplateEdited.Core.Aspects.Autofac.Caching;
 using LayerTemplateEdited.Core.Aspects.Autofac.Validation;
-using LayerTemplateEdited.Core.CrossCuttingConcerns.Validation;
 using LayerTemplateEdited.Core.Utilities.Business;
 using LayerTemplateEdited.Core.Utilities.Results;
 using LayerTemplateEdited.DataAccess.Abstract;
 using LayerTemplateEdited.Entities.Concrete;
 using LayerTemplateEdited.Entities.DTOs;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using System.ComponentModel.DataAnnotations;
 
 namespace LayerTemplateEdited.Business.Concrete
 {
-	public class TemporaryManager : ITemporaryService
+    public class TemporaryManager : ITemporaryService
 	{
 		ITemporaryDal _temporaryDal;
 		ITemporaryCategoryService _temporaryCategoryService;
@@ -25,8 +23,10 @@ namespace LayerTemplateEdited.Business.Concrete
 			_temporaryCategoryService = temporaryCategoryService;
 		}
 
-		[ValidationAspect(typeof(TemporaryValidator))]
-		public IResult Add(Temporary temp)
+        [SecuredOperation("admin")]
+        [ValidationAspect(typeof(TemporaryValidator))]
+        [CacheRemoveAspect("ITemporaryService.Get")]
+        public IResult Add(Temporary temp)
 		{
 			var result = BusinessRules.Run(
 				CheckIfTemporaryCountOfCategoryCorrect(temp.TemporaryId), 
@@ -43,13 +43,13 @@ namespace LayerTemplateEdited.Business.Concrete
 			return new SuccessResult(Messages.TemporaryAdded);
 
 		}
-
+		[CacheAspect]
 		public IDataResult<List<Temporary>> GetAll()
 		{
 			return new SuccessDataResult<List<Temporary>>(_temporaryDal.GetAll());
 		}
-
-		public IDataResult<Temporary> GetById(int id)
+        [CacheAspect]
+        public IDataResult<Temporary> GetById(int id)
 		{
 			return new SuccessDataResult<Temporary>(_temporaryDal.Get(x => x.TemporaryId == id));
 		}
@@ -58,7 +58,6 @@ namespace LayerTemplateEdited.Business.Concrete
 		{
 			return new SuccessDataResult<List<TemporaryDetailDto>>(_temporaryDal.GetTemporaryDetails());
 		}
-
 
 		private IResult CheckIfTemporaryCountOfCategoryCorrect(int categoryId)
 		{

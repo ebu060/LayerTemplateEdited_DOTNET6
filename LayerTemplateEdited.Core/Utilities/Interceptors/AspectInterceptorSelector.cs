@@ -1,4 +1,5 @@
 ﻿using Castle.DynamicProxy;
+using LayerTemplateEdited.Core.Aspects.Autofac.Performance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,10 @@ namespace LayerTemplateEdited.Core.Utilities.Interceptors
 				.GetCustomAttributes<MethodInterceptionBaseAttribute>(true);
 			classAttributes.AddRange(methodAttributes);
 
-			//TÜM METODLARI LOGLAR
-			//classAttributes.Add(new ExceptionLogAspect(typeof(FileLogger)));
-
+            //TÜM METODLARI LOGLAR
+            //classAttributes.Add(new ExceptionLogAspect(typeof(FileLogger)));
+            //TÜM METODLARA PERFORMANS LOGU EKLER
+            classAttributes.Add(new PerformanceAspect(5));
 			return classAttributes.OrderBy(x => x.Priority).ToArray();
 		}
 	}

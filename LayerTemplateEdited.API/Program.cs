@@ -2,10 +2,13 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using LayerTemplateEdited.Business.DependecyResolvers.Autofac;
+using LayerTemplateEdited.Core.DependencyResolver;
+using LayerTemplateEdited.Core.Utilities.IoC;
 using LayerTemplateEdited.Core.Utilities.Security.Encryption;
 using LayerTemplateEdited.Core.Utilities.Security.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using LayerTemplateEdited.Core.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
@@ -34,6 +37,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
 		};
 	});
+
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+	new CoreModule()
+});
+
+//builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+//ServiceTool.Create(builder.Services);
 
 var app = builder.Build();
 
