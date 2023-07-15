@@ -3,6 +3,7 @@ using LayerTemplateEdited.Core.CrossCuttingConcerns.Caching.Microsoft;
 using LayerTemplateEdited.Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 
 namespace LayerTemplateEdited.Core.DependencyResolver
 {
@@ -13,6 +14,7 @@ namespace LayerTemplateEdited.Core.DependencyResolver
             serviceCollection.AddMemoryCache();
             serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             serviceCollection.AddSingleton<ICacheManager, MemoryCacheManager>();
-        }
+			serviceCollection.AddSingleton<Stopwatch>();
+		}
     }
 }
