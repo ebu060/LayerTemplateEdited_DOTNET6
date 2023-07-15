@@ -1,12 +1,5 @@
 ﻿using LayerTemplateEdited.Business.Abstract;
-using LayerTemplateEdited.Business.BusinessAspects.Autofac;
-using LayerTemplateEdited.Business.Concrete;
-using LayerTemplateEdited.Business.ValidationRules;
-using LayerTemplateEdited.Core.Aspects.Autofac.Validation;
-using LayerTemplateEdited.Core.Utilities.Results;
-using LayerTemplateEdited.DataAccess.Concrete.EntityFramework;
 using LayerTemplateEdited.Entities.Concrete;
-using LayerTemplateEdited.Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LayerTemplateEdited.API.Controllers

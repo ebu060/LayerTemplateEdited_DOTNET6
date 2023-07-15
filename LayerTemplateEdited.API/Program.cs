@@ -1,14 +1,13 @@
 using Autofac;
-using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using LayerTemplateEdited.Business.DependecyResolvers.Autofac;
 using LayerTemplateEdited.Core.DependencyResolver;
+using LayerTemplateEdited.Core.Extensions;
 using LayerTemplateEdited.Core.Utilities.IoC;
 using LayerTemplateEdited.Core.Utilities.Security.Encryption;
 using LayerTemplateEdited.Core.Utilities.Security.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using LayerTemplateEdited.Core.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());

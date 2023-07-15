@@ -1,13 +1,7 @@
 ﻿using LayerTemplateEdited.Business.Abstract;
 using LayerTemplateEdited.Core.Utilities.Results;
 using LayerTemplateEdited.DataAccess.Abstract;
-using LayerTemplateEdited.DataAccess.Concrete.EntityFramework;
 using LayerTemplateEdited.Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LayerTemplateEdited.Business.Concrete
 {

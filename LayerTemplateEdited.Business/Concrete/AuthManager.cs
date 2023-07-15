@@ -5,11 +5,6 @@ using LayerTemplateEdited.Core.Utilities.Results;
 using LayerTemplateEdited.Core.Utilities.Security.Hashing;
 using LayerTemplateEdited.Core.Utilities.Security.JWT;
 using LayerTemplateEdited.Entities.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LayerTemplateEdited.Business.Concrete
 {

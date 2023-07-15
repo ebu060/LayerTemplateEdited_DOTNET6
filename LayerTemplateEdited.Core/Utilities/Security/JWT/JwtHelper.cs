@@ -1,10 +1,10 @@
 ﻿using LayerTemplateEdited.Core.Entities.Concrete;
+using LayerTemplateEdited.Core.Extensions;
 using LayerTemplateEdited.Core.Utilities.Security.Encryption;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using LayerTemplateEdited.Core.Extensions;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace LayerTemplateEdited.Core.Utilities.Security.JWT
 {

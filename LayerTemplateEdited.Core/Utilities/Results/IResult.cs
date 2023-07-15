@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LayerTemplateEdited.Core.Utilities.Results
+﻿namespace LayerTemplateEdited.Core.Utilities.Results
 {
 	public interface IResult
 	{
