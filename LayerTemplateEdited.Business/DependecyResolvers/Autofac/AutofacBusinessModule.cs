@@ -17,9 +17,9 @@ namespace LayerTemplateEdited.Business.DependecyResolvers.Autofac
 			builder.RegisterType<TemporaryManager>().As<ITemporaryService>().SingleInstance();
 			builder.RegisterType<TemporaryCategoryManager>().As<ITemporaryCategoryService>().SingleInstance();
 			builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
+
 			builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
 			builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
-
 
 
 			builder.RegisterType<TemporaryDal>().As<ITemporaryDal>().SingleInstance();

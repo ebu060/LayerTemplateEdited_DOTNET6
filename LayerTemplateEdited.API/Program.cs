@@ -42,9 +42,6 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]
 	new CoreModule()
 });
 
-//builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-//ServiceTool.Create(builder.Services);
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
