@@ -3,7 +3,9 @@ using LayerTemplateEdited.Business.BusinessAspects.Autofac;
 using LayerTemplateEdited.Business.Constants;
 using LayerTemplateEdited.Business.ValidationRules;
 using LayerTemplateEdited.Core.Aspects.Autofac.Caching;
+using LayerTemplateEdited.Core.Aspects.Autofac.Logging;
 using LayerTemplateEdited.Core.Aspects.Autofac.Validation;
+using LayerTemplateEdited.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using LayerTemplateEdited.Core.Utilities.Business;
 using LayerTemplateEdited.Core.Utilities.Results;
 using LayerTemplateEdited.DataAccess.Abstract;
@@ -48,7 +50,9 @@ namespace LayerTemplateEdited.Business.Concrete
 		{
 			return new SuccessDataResult<List<Temporary>>(_temporaryDal.GetAll());
 		}
-        [CacheAspect]
+
+        [LogAspect(typeof(DatabaseLogger))]
+        [CacheAspect(duration: 10)]
         public IDataResult<Temporary> GetById(int id)
 		{
 			return new SuccessDataResult<Temporary>(_temporaryDal.Get(x => x.TemporaryId == id));
@@ -58,6 +62,8 @@ namespace LayerTemplateEdited.Business.Concrete
 		{
 			return new SuccessDataResult<List<TemporaryDetailDto>>(_temporaryDal.GetTemporaryDetails());
 		}
+
+		//Rules
 
 		private IResult CheckIfTemporaryCountOfCategoryCorrect(int categoryId)
 		{
