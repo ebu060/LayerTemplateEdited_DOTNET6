@@ -1,8 +1,5 @@
-using App.Metrics.AspNetCore;
-using App.Metrics.Formatters.Prometheus;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using LayerTemplateEdited.API.Middleware;
 using LayerTemplateEdited.Business.DependecyResolvers.Autofac;
 using LayerTemplateEdited.Core.DependencyResolver;
 using LayerTemplateEdited.Core.Extensions;
@@ -11,24 +8,12 @@ using LayerTemplateEdited.Core.Utilities.Security.Encryption;
 using LayerTemplateEdited.Core.Utilities.Security.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
-builder.Host.UseMetricsWebTracking().UseMetrics(options =>
-{
-	options.EndpointOptions = endpointOptions =>
-	{
-		endpointOptions.MetricsTextEndpointOutputFormatter = new MetricsPrometheusTextOutputFormatter();
-		endpointOptions.MetricsEndpointOutputFormatter = new MetricsPrometheusProtobufOutputFormatter();
-		endpointOptions.EnvironmentInfoEndpointEnabled = false;
-	};
-});
-
 
 // Add services to the container.
-builder.Services.AddMetrics();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -68,12 +53,6 @@ if (app.Environment.IsDevelopment())
 app.ConfigureCustomExceptionMiddleware();
 
 app.UseHttpsRedirection();
-
-app.UseHttpMetrics();
-
-app.UseMiddleware<MetricMiddleware>();
-
-app.UseMetricServer();
 
 app.UseAuthentication();
 
